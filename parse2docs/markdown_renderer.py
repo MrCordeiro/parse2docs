@@ -66,7 +66,6 @@ def _document_action(action: Action) -> str:
 def _add_overall_usage(parser: ArgumentParser) -> str:
     cmd_example = []
     for action in parser._actions:
-
         # Skip actions with no options
         if not action.option_strings:
             continue
@@ -76,7 +75,7 @@ def _add_overall_usage(parser: ArgumentParser) -> str:
             continue
 
         value = _get_example_value_from_action(action)
-    
+
         # Include brackets for optional arguments
         if action.required:
             cmd_example.append(f"{action.option_strings[0]}{value}")
@@ -94,9 +93,8 @@ def _add_overall_usage(parser: ArgumentParser) -> str:
 def _get_example_value_from_action(action: Action) -> str:
     if action.metavar:
         value = f" <{action.metavar}>"
-    elif action.nargs ==  0:
+    elif action.nargs == 0:
         value = ""
     else:
         value = " <value>"
     return value
-

@@ -47,7 +47,7 @@ def get_argument_parser():
     parser.add_argument(
         "-v", "--verbose", action="store_true", help="Enable verbose mode"
     )
-    
+
     return parser
 
 

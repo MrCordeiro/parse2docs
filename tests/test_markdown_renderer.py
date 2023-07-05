@@ -1,11 +1,13 @@
-import pytest
 from argparse import ArgumentParser
+
+import pytest
+
 from parse2docs.markdown_renderer import (
-    generate_markdown,
     _add_description,
     _add_overall_usage,
     _add_table_of_contents,
     _document_action,
+    generate_markdown,
 )
 
 
@@ -97,7 +99,7 @@ def test_document_action(parser):
             expected_usage = ""
 
         documentation = _document_action(action)
-    
+
         assert f"### {action.dest}\n\n" in documentation
         assert f"{action.help}\n\n" in documentation
         assert expected_flags in documentation
