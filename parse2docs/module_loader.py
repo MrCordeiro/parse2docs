@@ -7,17 +7,9 @@ from types import ModuleType
 
 def get_module_from_path(path: str) -> ModuleType:
     """Import a Python module from a given path."""
-    module_name = _get_module_name(path)
     module_name = Path(path).stem
     with SysPathContext(path):
         return importlib.import_module(module_name)
-
-
-def _get_module_name(path: str) -> str:
-    module_name = path.replace("/", ".").replace("\\", ".")
-    if module_name.endswith(".py"):
-        module_name = module_name[:-3]
-    return module_name
 
 
 class SysPathContext:
