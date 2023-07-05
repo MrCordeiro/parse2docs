@@ -2,6 +2,7 @@
 import logging
 import os
 from argparse import ArgumentParser
+from pathlib import Path
 
 from parse2docs.argfinder import get_argparser_from_module
 from parse2docs.markdown_renderer import generate_markdown
@@ -24,6 +25,7 @@ def get_argument_parser() -> ArgumentParser:
     arg_parser.add_argument(
         "file_path",
         help="Path to the Python script file containing the ArgumentParser.",
+        type=Path,
     )
     return arg_parser
 

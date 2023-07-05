@@ -72,6 +72,8 @@ The following usage section was generated using `parse2docs` 😉:
 
 Path to the Python script file containing the ArgumentParser.
 
+**Type**: `Path`
+
 **Required**: Yes
 ```
 
