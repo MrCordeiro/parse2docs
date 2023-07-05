@@ -1,5 +1,10 @@
 # Parse 2 Docs
 
+![PyPI](https://img.shields.io/pypi/v/parse2docs)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Tests](https://github.com/MrCordeiro/parse2docs/actions/workflows/tests.yml/badge.svg)](https://github.com/MrCordeiro/parse2docs/actions/workflows/tests.yml)
+[![Linters](https://github.com/MrCordeiro/parse2docs/actions/workflows/linters.yml/badge.svg)](https://github.com/MrCordeiro/parse2docs/actions/workflows/linters.yml)
+
 `parse2docs` is a Python library that allows you to automatically generate usage documentation in Markdown format from Python scripts using the `argparse` module.
 
 ## Features
