@@ -13,7 +13,11 @@
 
 ### Via `pip`
 
-`parse2docs` is not yet available for installation via `pip`. To use the library, clone this repository to your local machine and import the required functions directly into your Python scripts.
+`parse2docs` can be installed via `pip`:
+
+```shell
+pip install parse2docs
+```
 
 ### Via `poetry`
 
