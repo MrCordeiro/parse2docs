@@ -1,0 +1,41 @@
+name: Linters
+
+on:
+  push:
+    branches:
+      - "main"
+      - "master"
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  linters:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install --upgrade pip
+          python -m pip install isort
+
+      - name: isort
+        uses: liskin/gh-problem-matcher-wrap@v1
+        with:
+          linters: isort
+          run: isort --check --diff energy_savings --profile black
+
+      - name: black
+        uses: psf/black@stable
+
+      - name: ruff
+        uses: jpetrucciani/ruff-check@main

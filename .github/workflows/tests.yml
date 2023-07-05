@@ -1,0 +1,68 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - "main"
+      - "master"
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  PROJECT_ID: "testing_project"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install workflow dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest pytest-cov coverage[toml]
+
+      - name: Install project dependencies
+        shell: bash
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          poetry config virtualenvs.create false
+          poetry install
+
+      - name: Run Tests
+        run: |
+          pytest . --cov
+          coverage report
+          coverage xml
+
+      - name: Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.0.2
+        with:
+          filename: coverage.xml
+          badge: true
+          format: 'markdown'
+          output: 'both'
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md
