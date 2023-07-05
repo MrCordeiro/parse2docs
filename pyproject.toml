@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "parse2docs"
-version = "0.1.0"
+version = "0.1.2"
 description = "Generate usage documentation from Python scripts using the `argparse` module"
 authors = ["Fernando Cordeiro"]
 readme = "README.md"
