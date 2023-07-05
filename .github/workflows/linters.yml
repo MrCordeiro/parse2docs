@@ -29,10 +29,9 @@ jobs:
           python -m pip install isort
 
       - name: isort
-        uses: liskin/gh-problem-matcher-wrap@v1
+        uses: isort/isort-action@master
         with:
-          linters: isort
-          run: isort --check --diff energy_savings --profile black
+          configuration: --check-only --diff --profile black
 
       - name: black
         uses: psf/black@stable
