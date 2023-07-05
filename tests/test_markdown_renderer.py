@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from unittest.mock import patch
 
 import pytest
 
@@ -58,30 +59,38 @@ def test_generate_markdown_on_empty_parser(empty_parser: ArgumentParser):
     ), "Options section should not be present on a parser with no arguments"
 
 
-def test_add_description(parser):
+def test_add_description(parser: ArgumentParser):
     description = _add_description(parser)
     assert (
         description == "## Description\n\nA simple file copy script.\n\n"
     ), "Description should be added to the markdown"
 
 
-def test_add_overall_usage(parser):
+@pytest.mark.parametrize(
+    "argv, script_name",
+    [
+        (["parse2docs", "script.py"], "script.py"),
+        (["script.py", "-s", "source"], "markdown_renderer.py"),
+    ],
+)
+def test_add_overall_usage(argv: list[str], script_name: str, parser: ArgumentParser):
     expected_usage = (
-        "## Overall Usage Example\n\n`script.py -s <source_path> -d <dest_path>"
+        f"## Overall Usage Example\n\n`{script_name} -s <source_path> -d <dest_path>"
         " [-v]`\n\n"
     )
-    usage = _add_overall_usage(parser)
+    with patch("parse2docs.module_loader.sys.argv", argv):
+        usage = _add_overall_usage(parser)
     assert usage == expected_usage, "Overall usage should be added to the markdown"
 
 
-def test_add_table_of_contents(parser):
+def test_add_table_of_contents(parser: ArgumentParser):
     contents = _add_table_of_contents(parser)
     assert "- [source](#source)" in contents
     assert "- [destination](#destination)" in contents
     assert "- [verbose](#verbose)" in contents
 
 
-def test_document_action(parser):
+def test_document_action(parser: ArgumentParser):
     for action in parser._actions:
         if action.dest == "help":
             continue

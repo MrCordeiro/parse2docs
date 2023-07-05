@@ -1,4 +1,6 @@
+import sys
 from argparse import Action, ArgumentParser, FileType
+from pathlib import Path
 
 
 def generate_markdown(parser: ArgumentParser) -> str:
@@ -43,7 +45,9 @@ def _add_table_of_contents(parser: ArgumentParser) -> str:
 def _document_action(action: Action) -> str:
     doc = f"### {action.dest}\n\n"
     doc += f"{action.help}\n\n"
-    doc += f"**Flags**: `{', '.join(action.option_strings)}`\n\n"
+
+    if action.option_strings:
+        doc += f"**Flags**: `{', '.join(action.option_strings)}`\n\n"
 
     if isinstance(action.type, FileType):
         doc += "**Type**: `file` \n\n"
@@ -66,8 +70,10 @@ def _document_action(action: Action) -> str:
 def _add_overall_usage(parser: ArgumentParser) -> str:
     cmd_example = []
     for action in parser._actions:
-        # Skip actions with no options
+        # When the action doesn't have any option strings, it's a positional
+        # argument
         if not action.option_strings:
+            cmd_example.append(f"<{action.dest}>")
             continue
 
         # Skip help flag
@@ -83,11 +89,21 @@ def _add_overall_usage(parser: ArgumentParser) -> str:
             cmd_example.append(f"[{action.option_strings[0]}{value}]")
 
     cmd_example = " ".join(cmd_example)
+    script_name = _get_script_name()
 
     if cmd_example.strip() == "":
-        return "## Overall Usage Example\n\n`script.py`\n\n"
+        return f"## Overall Usage Example\n\n`{script_name}`\n\n"
 
-    return f"## Overall Usage Example\n\n`script.py {cmd_example}`\n\n"
+    return f"## Overall Usage Example\n\n`{script_name} {cmd_example}`\n\n"
+
+
+def _get_script_name() -> str:
+    # Running from the command line, so the script name is the last argument
+    if sys.argv[0] == "parse2docs":
+        return Path(sys.argv[-1]).name
+
+    # When running from a module, the script name is the module name
+    return Path(__file__).name
 
 
 def _get_example_value_from_action(action: Action) -> str:
