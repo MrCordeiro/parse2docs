@@ -1,5 +1,5 @@
-import inspect
 from argparse import ArgumentParser
+from types import ModuleType
 
 import pytest
 
@@ -19,6 +19,6 @@ def test_find_argparser_in_functions():
 
 
 def testget_argparser_from_module_no_parser():
-    empty_module = inspect.types.ModuleType("empty_module", "Empty test module")
+    empty_module = ModuleType("empty_module", "Empty test module")
     with pytest.raises(ValueError):
         get_argparser_from_module(empty_module)
