@@ -53,10 +53,26 @@ This will generate a `output.md` file with the usage documentation in Markdown f
 
 ### From the command line
 
-You can use `parse2docs` directly from the command line with the `parse2docs` command. The command takes a Python script as an argument and generates a markdown file with the same name and in the same directory as the Python script.
+#### Description
 
-```shell
-parse2docs path_to_your_python_script.py
+The following usage section was generated using `parse2docs` 😉:
+
+```md
+## Overall Usage Example
+
+`example.py <file_path>`
+
+## Table of Contents
+
+* [file_path](#file_path)
+
+## Options
+
+### file_path
+
+Path to the Python script file containing the ArgumentParser.
+
+**Required**: Yes
 ```
 
 This will print the usage documentation in Markdown format to the console.
