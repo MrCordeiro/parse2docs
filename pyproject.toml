@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Generate usage documentation from Python scripts using the `argparse` module"
 authors = ["Fernando Cordeiro"]
 readme = "README.md"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
