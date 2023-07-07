@@ -70,6 +70,7 @@ def test_add_description(parser: ArgumentParser):
     "argv, script_name",
     [
         (["parse2docs", "script.py"], "script.py"),
+        (["poetry", "run", "parse2docs", "script.py"], "script.py"),
         (["script.py", "-s", "source"], "markdown_renderer.py"),
     ],
 )
