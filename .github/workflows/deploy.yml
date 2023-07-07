@@ -1,0 +1,28 @@
+name: Deploy to PyPI
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Configure poetry
+        run: |
+          poetry config virtualenvs.create false
+          poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Install project dependencies
+        run: poetry install
+
+      - name: Publish package
+        run: poetry publish --build --no-interaction
