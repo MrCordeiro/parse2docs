@@ -99,7 +99,7 @@ def _add_overall_usage(parser: ArgumentParser) -> str:
 
 def _get_script_name() -> str:
     # Running from the command line, so the script name is the last argument
-    if sys.argv[0] == "parse2docs":
+    if "parse2docs" in sys.argv:
         return Path(sys.argv[-1]).name
 
     # When running from a module, the script name is the module name
