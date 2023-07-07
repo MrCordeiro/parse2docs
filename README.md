@@ -16,22 +16,10 @@
 
 ## Installation
 
-### Via `pip`
-
 `parse2docs` can be installed via `pip`:
 
 ```shell
 pip install parse2docs
-```
-
-### Via `poetry`
-
-`parse2docs` can be installed via Poetry. To install the library, clone this repository to your local machine and use Poetry to install:
-
-```shell
-git clone https://github.com/yourusername/parse2docs.git
-cd parse2docs
-poetry install
 ```
 
 ## Usage
