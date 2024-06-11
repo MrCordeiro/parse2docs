@@ -1,4 +1,5 @@
 """Entry point for parse2docs."""
+
 import logging
 import os
 from argparse import ArgumentParser

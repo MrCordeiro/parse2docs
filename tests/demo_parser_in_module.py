@@ -1,4 +1,5 @@
 """Sample script that copies a file from source to destination."""
+
 import argparse
 import shutil
 
